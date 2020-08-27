@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -13,16 +14,24 @@ namespace BlazorDesktopLauncher
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static Type MainPage;
+        
+        public static void Start(string[] args, Type mainPage)
         {
-            CreateHostBuilder(args).Build().Run();
+            MainPage = mainPage;
+            CreateHostBuilder(args, mainPage).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args, Type mainPage) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseStaticWebAssets();
+                    webBuilder.UseWebRoot(GetWebRootPath(mainPage));
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static string GetWebRootPath(Type type) => 
+            Path.Combine(Path.GetDirectoryName(type.Assembly.Location)!, "wwwroot");
     }
 }
