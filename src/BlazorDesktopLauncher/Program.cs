@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -16,12 +17,12 @@ namespace BlazorDesktopLauncher
 {
     public class Program
     {
-        public static Type MainPage;
-        
-        public static void Start(string[] args, Type mainPage)
+        public static Type MainPage { get; private set; }
+
+        public static void Start<T>(string[] args) where T : ComponentBase
         {
-            MainPage = mainPage;
-            var runTask = CreateHostBuilder(args, mainPage).Build().RunAsync();
+            MainPage = typeof(T);
+            var runTask = CreateHostBuilder(args, MainPage).Build().RunAsync();
             OpenWindow();
             runTask.Wait();
         }

@@ -4,7 +4,7 @@ namespace SimpleApp
 	{
 		public static void Main(string[] args)
 		{
-			BlazorDesktopLauncher.Program.Start(args, typeof(Component1));
+			BlazorDesktopLauncher.Program.Start<Component1>(args);
 		}
 	}
 }
