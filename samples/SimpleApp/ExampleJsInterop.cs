@@ -5,12 +5,23 @@ namespace SimpleApp
 {
     public class ExampleJsInterop
     {
-        public static ValueTask<string> Prompt(IJSRuntime jsRuntime, string message)
+        private readonly IJSRuntime _jsRuntime;
+
+        public ExampleJsInterop(IJSRuntime jsRuntime) => _jsRuntime = jsRuntime;
+
+        public ValueTask<string> Prompt(string message)
         {
             // Implemented in exampleJsInterop.js
-            return jsRuntime.InvokeAsync<string>(
+            return _jsRuntime.InvokeAsync<string>(
                 "exampleJsFunctions.showPrompt",
                 message);
+        }
+        
+        public async Task Alert(string message)
+        {
+            // Implemented in exampleJsInterop.js
+            await _jsRuntime.InvokeVoidAsync(
+                "exampleJsFunctions.showAlert", message);
         }
     }
 }

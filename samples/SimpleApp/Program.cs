@@ -1,3 +1,4 @@
+using BlazorDesktopLauncher.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleApp
@@ -9,6 +10,7 @@ namespace SimpleApp
 			BlazorDesktopLauncher.Program.Start<Component1>(args, collection =>
 			{
 				collection.AddSingleton<ExampleJsInterop>();
+				collection.AddJsLoader("exampleJsInterop.js");
 			});
 		}
 	}

@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using BlazorDesktopLauncher.Extensions
 @namespace BlazorDesktopLauncher.Pages
+@inject IEnumerable<JsScriptSource> JsScriptSources
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
@@ -19,5 +21,9 @@
     </app>
 
     <script src="_framework/blazor.server.js"></script>
+    @foreach (var script in JsScriptSources.SelectMany(jss => jss.ScriptPaths).Distinct())
+    {
+        <script src=@script></script>
+    }
 </body>
 </html>
