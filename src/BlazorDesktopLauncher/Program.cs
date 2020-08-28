@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PuppeteerSharp;
@@ -19,10 +20,12 @@ namespace BlazorDesktopLauncher
     {
         public static Type MainPage { get; private set; }
 
-        public static void Start<T>(string[] args) where T : ComponentBase
+        public static void Start<T>(string[] args, Action<IServiceCollection>? cnf = null) where T : ComponentBase
         {
             MainPage = typeof(T);
-            var runTask = CreateHostBuilder(args, MainPage).Build().RunAsync();
+            var runTask = CreateHostBuilder(args)
+                .ConfigureServices(sv => cnf?.Invoke(sv))
+                .Build().RunAsync();
             OpenWindow();
             runTask.Wait();
         }
@@ -48,7 +51,7 @@ namespace BlazorDesktopLauncher
             });
         }
 
-        private static IHostBuilder CreateHostBuilder(string[] args, Type mainPage) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

@@ -8,6 +8,7 @@
     <PackageVersion>1.0-preview2</PackageVersion>
     <Authors>Y56380X</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
