@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BlazorDesktopLauncher;
 using BlazorDesktopLauncher.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,16 +7,15 @@ namespace SimpleApp
 {
 	public static class Program
 	{
-		public static void Main(string[] args)
+		public static async Task Main()
 		{
-			BlazorDesktopLauncher.Program.Start<Component1>(args, collection =>
+			var application = new DesktopApplication<Component1>(services =>
 			{
-				collection.AddSingleton<ExampleJsInterop>();
-				collection.AddJsLoader("exampleJsInterop.js");
-			}, blazorDesktop =>
-			{
-				blazorDesktop.UseLocalBrowser();
-			});
+				services.AddSingleton<ExampleJsInterop>();
+				services.AddJsLoader("exampleJsInterop.js");
+			}, blazorDesktop => blazorDesktop.UseLocalBrowser());
+			
+			await application.RunAsync();
 		}
 	}
 }

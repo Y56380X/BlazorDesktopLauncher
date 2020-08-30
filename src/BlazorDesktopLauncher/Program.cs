@@ -9,24 +9,44 @@ using PuppeteerSharp;
 
 namespace BlazorDesktopLauncher
 {
-	public class Program
+	public abstract class MainComponentProvider
 	{
-		public static Type MainPage { get; private set; }
+		public abstract Type MainComponent { get; }
+	}
+	
+	public class DesktopApplication<T> : MainComponentProvider where T : ComponentBase
+	{
+		public override Type MainComponent { get; }
+		
+		private readonly Action<IServiceCollection>? _serviceConfiguration;
+		private readonly Action<IBlazorDesktopConfiguration>? _appConfiguration;
 
-		public static void Start<T>(string[] args,
-			Action<IServiceCollection>? cnf = null,
-			Action<IBlazorDesktopConfiguration>? bdc = null) where T : ComponentBase
+		public DesktopApplication(
+			Action<IServiceCollection>? serviceConfiguration = null, 
+			Action<IBlazorDesktopConfiguration>? appConfiguration = null)
 		{
-			MainPage = typeof(T);
-			var runTask = CreateHostBuilder(args)
-				.ConfigureServices(sv => cnf?.Invoke(sv))
-				.Build().RunAsync();
-			var bdConfig = new BlazorDesktopConfiguration();
-			bdc?.Invoke(bdConfig);
-			OpenWindow(bdConfig);
-			runTask.Wait();
+			_serviceConfiguration = serviceConfiguration;
+			_appConfiguration = appConfiguration;
+			MainComponent = typeof(T);
 		}
 
+		public async Task RunAsync()
+		{
+			var runTask = CreateHostBuilder(Environment.GetCommandLineArgs())
+				.ConfigureServices(sv =>
+				{
+					_serviceConfiguration?.Invoke(sv);
+					sv.AddSingleton<MainComponentProvider>(this);
+				})
+				.Build().RunAsync();
+			
+			var bdConfig = new BlazorDesktopConfiguration();
+			_appConfiguration?.Invoke(bdConfig);
+			var browserTask = OpenWindow(bdConfig);
+			
+			await Task.WhenAll(browserTask, runTask);
+		}
+		
 		private static Task OpenWindow(IBlazorDesktopConfiguration bdc)
 		{
 			return Task.Run(async () =>

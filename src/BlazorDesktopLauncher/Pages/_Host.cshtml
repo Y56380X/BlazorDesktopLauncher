@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using BlazorDesktopLauncher.Extensions
 @namespace BlazorDesktopLauncher.Pages
+@inject MainComponentProvider MainComponentProvider
 @inject IEnumerable<JsScriptSource> JsScriptSources
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
@@ -17,7 +18,7 @@
 </head>
 <body>
     <app>
-        <component type="@Program.MainPage" render-mode="ServerPrerendered"/>
+        <component type="MainComponentProvider.MainComponent" render-mode="ServerPrerendered"/>
     </app>
 
     <script src="_framework/blazor.server.js"></script>
