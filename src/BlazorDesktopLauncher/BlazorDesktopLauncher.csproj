@@ -11,7 +11,6 @@
     <Nullable>enable</Nullable>
     <Title>Blazor Desktop Launcher</Title>
     <PackageProjectUrl>https://github.com/Y56380X/BlazorDesktopLauncher</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/Y56380X/BlazorDesktopLauncher/main/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Y56380X/BlazorDesktopLauncher</RepositoryUrl>
   </PropertyGroup>
 
