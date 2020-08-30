@@ -1,3 +1,4 @@
+using BlazorDesktopLauncher;
 using BlazorDesktopLauncher.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,9 @@ namespace SimpleApp
 			{
 				collection.AddSingleton<ExampleJsInterop>();
 				collection.AddJsLoader("exampleJsInterop.js");
+			}, blazorDesktop =>
+			{
+				blazorDesktop.UseLocalBrowser();
 			});
 		}
 	}

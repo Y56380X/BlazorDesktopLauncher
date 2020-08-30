@@ -5,7 +5,7 @@
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>1.0-preview2</PackageVersion>
+    <PackageVersion>1.0-preview3</PackageVersion>
     <Authors>Y56380X</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Nullable>enable</Nullable>
