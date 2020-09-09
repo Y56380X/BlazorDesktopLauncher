@@ -13,15 +13,15 @@ Launches a razor class library as blazor server application
 2. Add BlazorDesktopLauncher nuget package
 3. Add a Program.cs file with a main method as entry point
 4. Instantiate a new DesktopApplication, you can use the Component1 
- from the template for your applications main component (```DesktopApplication<Component1>```).
+ from the template for your applications main component (`DesktopApplication<Component1>`).
 5. Call RunAsync Method with await or .Wait()
-6. Change .csproj OutputType to Exe (```<OutputType>Exe</OutputType>```)
+6. Change .csproj OutputType to Exe (`<OutputType>Exe</OutputType>`)
 
 #### Setup static content
 
 Add following code to your .csproj:
 
-```
+```xml
 <ItemGroup>
       <Content Update="wwwroot\**">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -35,7 +35,7 @@ Add following code to your .csproj:
 
 Add following code to your Component1:
 
-```
+```html
 <link rel="stylesheet" href="styles.css" />
 ```
 
@@ -45,4 +45,4 @@ By default the launcher will download a chromium browser.
  On many systems a chromium browser is already installed, so the launcher is able to try using it.
 
 For this you have to modify the instantiation of the DesktopApplication. Add an argument:
-```appConfiguration: app => app.UseLocalBrowser()```.
+`appConfiguration: app => app.UseLocalBrowser()`.
