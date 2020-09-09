@@ -3,6 +3,8 @@
 Launches a razor class library as blazor server application 
  and starts a navigation less browser frame.
 
+!THIS IS VERY EXPERIMENTAL!
+
 ## Getting started
 
 ### SimpleApp example
