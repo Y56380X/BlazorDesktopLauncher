@@ -12,6 +12,8 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleApp", "samples\SimpleApp\SimpleApp.csproj", "{C811C9D9-9A9C-40FF-AC2B-5A9851885889}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BoleroApp", "samples\BoleroApp\BoleroApp.fsproj", "{3BC0DCB6-0489-4AAF-8D39-1C5B58CA7E44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +28,13 @@ Global
 		{C811C9D9-9A9C-40FF-AC2B-5A9851885889}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C811C9D9-9A9C-40FF-AC2B-5A9851885889}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C811C9D9-9A9C-40FF-AC2B-5A9851885889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BC0DCB6-0489-4AAF-8D39-1C5B58CA7E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BC0DCB6-0489-4AAF-8D39-1C5B58CA7E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BC0DCB6-0489-4AAF-8D39-1C5B58CA7E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BC0DCB6-0489-4AAF-8D39-1C5B58CA7E44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C811C9D9-9A9C-40FF-AC2B-5A9851885889} = {D8ABA861-6197-4F44-96D6-8EEEF4CB4F67}
+		{3BC0DCB6-0489-4AAF-8D39-1C5B58CA7E44} = {D8ABA861-6197-4F44-96D6-8EEEF4CB4F67}
 	EndGlobalSection
 EndGlobal
