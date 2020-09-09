@@ -1,10 +1,5 @@
-﻿@using Microsoft.JSInterop
-@inject IJSRuntime jsRuntime
-@inject ExampleJsInterop NotificationManager
-
-<link rel="stylesheet" href="styles.css" />
+﻿<link rel="stylesheet" href="styles.css" />
 
 <div class="my-component">
     This Blazor component is defined in the <strong>SimpleApp</strong> package.
-    <button @onclick=@(() => NotificationManager.Alert(jsRuntime, "TEST"))>Test JS interop</button>
 </div>
