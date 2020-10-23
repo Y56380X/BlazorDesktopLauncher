@@ -34,7 +34,7 @@ namespace BlazorDesktopLauncher.Extensions
 		private static readonly Dictionary<PlatformID, string[]> PlatformBrowsers = new Dictionary<PlatformID, string[]>
 		{
 			{ PlatformID.Win32NT, new []{ @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" }},
-			{ PlatformID.Unix, new []{ @"/usr/bin/chromium" }}
+			{ PlatformID.Unix, new []{ @"/usr/bin/chromium", @"/snap/bin/chromium", @"/usr/bin/vivaldi" }}
 		};
 		
 		public static void UseLocalBrowser(this IBlazorDesktopConfiguration config)
