@@ -1,8 +1,10 @@
 ﻿@page "/"
 @using BlazorDesktopLauncher.Extensions
+@using Microsoft.Extensions.Configuration
 @namespace BlazorDesktopLauncher.Pages
 @inject MainComponentProvider MainComponentProvider
 @inject IEnumerable<JsScriptSource> JsScriptSources
+@inject IConfiguration Configuration
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
@@ -13,7 +15,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>BlazorDesktopLauncher</title>
+    <title>@Configuration[nameof(IBlazorDesktopConfiguration.WindowTitle)]</title>
     <base href="~/"/>
 </head>
 <body>
