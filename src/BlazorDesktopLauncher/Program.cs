@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +19,7 @@ namespace BlazorDesktopLauncher
 	public class DesktopApplication<T> : MainComponentProvider where T : ComponentBase
 	{
 		public override Type MainComponent { get; }
+		private static int ApplicationPort { get; } = ReserveApplicationPort();
 		
 		private readonly Action<IServiceCollection>? _serviceConfiguration;
 		private readonly Action<IBlazorDesktopConfiguration>? _appConfiguration;
@@ -32,7 +35,11 @@ namespace BlazorDesktopLauncher
 
 		public async Task RunAsync()
 		{
+			var bdConfig = new BlazorDesktopConfiguration();
+			_appConfiguration?.Invoke(bdConfig);
+			
 			var runTask = CreateHostBuilder(Environment.GetCommandLineArgs())
+				.ConfigureAppConfiguration(builder => builder.Add(bdConfig))
 				.ConfigureServices(sv =>
 				{
 					_serviceConfiguration?.Invoke(sv);
@@ -40,10 +47,7 @@ namespace BlazorDesktopLauncher
 				})
 				.Build().RunAsync();
 			
-			var bdConfig = new BlazorDesktopConfiguration();
-			_appConfiguration?.Invoke(bdConfig);
 			var browserTask = OpenWindow(bdConfig);
-			
 			await Task.WhenAll(browserTask, runTask);
 		}
 		
@@ -60,7 +64,7 @@ namespace BlazorDesktopLauncher
 					Headless = false,
 					Args = new[]
 					{
-						"--app=http://localhost:5005/",
+						$"--app=http://localhost:{ApplicationPort}/",
 						"--window-size=900,650",
 						"--allow-insecure-localhost",
 						"--disable-extensions"
@@ -76,11 +80,34 @@ namespace BlazorDesktopLauncher
 				{
 					webBuilder.UseStaticWebAssets();
 					webBuilder.UseWebRoot(GetWebRootPath());
-					webBuilder.UseUrls("http://localhost:5005/");
+					webBuilder.UseUrls($"http://localhost:{ApplicationPort}/");
 					webBuilder.UseStartup<Startup>();
 				});
 
 		private static string GetWebRootPath() =>
 			Path.Combine(Environment.CurrentDirectory, "wwwroot");
+
+		private static int ReserveApplicationPort()
+		{
+			var port = 5000;
+			var success = false;
+			do
+			{
+				var listener = new TcpListener(IPAddress.Loopback, port) { ExclusiveAddressUse = true };
+				try
+				{
+					listener.Start();
+					listener.Stop();
+					success = true;
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine(e);
+					port++;
+				}
+			} while (!success);
+
+			return port;
+		}
 	}
 }
