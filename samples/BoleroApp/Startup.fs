@@ -8,8 +8,10 @@ module Program =
 
     [<EntryPoint>]
     let Main _ =
-        let appConfig = BlazorDesktopConfigurationExtensions.UseLocalBrowser
+        let configure (appConfig: IBlazorDesktopConfiguration) =
+            appConfig.UseLocalBrowser()
+            appConfig.WindowTitle <- "Bolero Sample App"
         
-        let app = DesktopApplication<Main.MyApp>(null, Action<IBlazorDesktopConfiguration>(appConfig))
+        let app = DesktopApplication<Main.MyApp>(null, Action<IBlazorDesktopConfiguration>(configure))
         app.RunAsync().Wait()
         0
