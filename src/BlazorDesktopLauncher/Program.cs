@@ -65,7 +65,7 @@ namespace BlazorDesktopLauncher
 					Args = new[]
 					{
 						$"--app=http://localhost:{ApplicationPort}/",
-						"--window-size=900,650",
+						$"--window-size={bdc.WindowWidth},{bdc.WindowHeight}",
 						"--allow-insecure-localhost",
 						"--disable-extensions"
 					}

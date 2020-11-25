@@ -9,6 +9,10 @@ namespace BlazorDesktopLauncher
 
 		string? IBlazorDesktopConfiguration.BrowserExecutablePath { get; set; }
 
-		string? IBlazorDesktopConfiguration.WindowTitle { get; set; } = "Blazor Desktop Launcher";
+		public string WindowTitle { get; set; } = "Blazor Desktop Launcher";
+
+		public int WindowWidth { get; set; } = 900;
+		
+		public int WindowHeight { get; set; } = 650;
 	}
 }
