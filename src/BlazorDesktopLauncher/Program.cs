@@ -56,7 +56,7 @@ namespace BlazorDesktopLauncher
 			return Task.Run(async () =>
 			{
 				if (string.IsNullOrWhiteSpace(bdc.BrowserExecutablePath) || !File.Exists(bdc.BrowserExecutablePath))
-					await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
+					await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
 
 				var browser = await Puppeteer.LaunchAsync(new LaunchOptions
 				{
