@@ -12,6 +12,8 @@
     <Title>Blazor Desktop Launcher</Title>
     <PackageProjectUrl>https://github.com/Y56380X/BlazorDesktopLauncher</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Y56380X/BlazorDesktopLauncher</RepositoryUrl>
+    <Description>Launches a razor class library as blazor server application and starts a navigation less browser frame.</Description>
+    
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
