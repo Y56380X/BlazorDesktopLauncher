@@ -70,7 +70,11 @@ namespace BlazorDesktopLauncher
 						"--disable-extensions"
 					}
 				});
-				browser.Closed += (sender, eventArgs) => Environment.Exit(0);
+				browser.Closed += (sender, eventArgs) =>
+				{
+					browser.Dispose();
+					Environment.Exit(0);
+				};
 			});
 		}
 
